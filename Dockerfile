@@ -25,5 +25,7 @@ RUN puppet resource package rundeck ensure=${RUNDECK_VERSION}
 # Install rundeck aws ec2 node plugin
 RUN wget https://github.com/rundeck-plugins/rundeck-ec2-nodes-plugin/releases/download/v${EC2_PLUG_VERSION}/rundeck-ec2-nodes-plugin-${EC2_PLUG_VERSION}.jar -O /var/lib/rundeck/libext/rundeck-ec2-nodes-plugin-${EC2_PLUG_VERSION}.jar
 
+RUN sed -i '/localhost:4440/d' /etc/rundeck/framework.properties
+
 # Run rundeck
 CMD source /etc/rundeck/profile && ${JAVA_HOME:-/usr}/bin/java ${RDECK_JVM} -cp ${BOOTSTRAP_CP} com.dtolabs.rundeck.RunServer /var/lib/rundeck ${RDECK_HTTP_PORT}
