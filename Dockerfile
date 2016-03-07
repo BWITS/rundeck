@@ -5,7 +5,7 @@ MAINTAINER Bill W
 ENV REFRESHED_AT 20151018
 
 ENV JAVA_VERSION=1.7.0
-ENV RUNDECK_VERSION=2.6.0-1.11.GA
+ENV RUNDECK_VERSION=2.6.4-1.15.GA
 
 # Install puppet
 RUN rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
@@ -22,7 +22,7 @@ RUN puppet resource yumrepo bintray-rundeck baseurl='http://dl.bintray.com/runde
 RUN puppet resource package rundeck ensure=${RUNDECK_VERSION}
 
 # Install rundeck aws ec2 node plugin
-RUN wget https://github.com/rundeck-plugins/rundeck-ec2-nodes-plugin/releases/download/1.5/rundeck-ec2-nodes-plugin-1.5.jar -O /var/lib/rundeck/libext/rundeck-ec2-nodes-plugin-1.5.jar
+RUN wget https://github.com/rundeck-plugins/rundeck-ec2-nodes-plugin/releases/download/v1.5.2/rundeck-ec2-nodes-plugin-1.5.2.jar -O /var/lib/rundeck/libext/rundeck-ec2-nodes-plugin-1.5.jar
 
 # Run rundeck
 CMD source /etc/rundeck/profile && ${JAVA_HOME:-/usr}/bin/java ${RDECK_JVM} -cp ${BOOTSTRAP_CP} com.dtolabs.rundeck.RunServer /var/lib/rundeck ${RDECK_HTTP_PORT}
